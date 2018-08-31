@@ -80,4 +80,24 @@ module.exports = {
     const data = await actionsDb.get();
     res.status(200).json({ data });
   },
+
+  addAction: async function addAction(req, res) {
+    const { project_id, description, notes } = req.body;
+
+    if (!project_id || !description || !notes)
+      return res.status(400).json({
+        message:
+          'The following fields are required: project_id, descriptin, notes',
+      });
+
+    const project = await projectsDb.get(project_id);
+
+    if (!project)
+      res
+        .status(404)
+        .json({ message: 'The project with specified ID cannot be found' });
+
+    const data = await actionsDb.insert({ project_id, description, notes });
+    res.status(201).json({ message: 'Action created successfully', data });
+  },
 };
