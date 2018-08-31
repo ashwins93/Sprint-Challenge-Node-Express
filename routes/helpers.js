@@ -10,7 +10,7 @@ module.exports = {
 
   getAllProjects: async function getAllProjects(req, res) {
     const data = await projectsDb.get();
-    res.status(200).json(data);
+    res.status(200).json({ data });
   },
 
   getOneProject: async function getOneProject(req, res) {
@@ -20,7 +20,7 @@ module.exports = {
         .status(404)
         .json({ message: 'The project with the requested id cannot be found' });
     }
-    res.status(200).json(data);
+    res.status(200).json({ data });
   },
 
   addProject: async function addProject(req, res) {
@@ -63,5 +63,16 @@ module.exports = {
     res
       .status(200)
       .json({ message: 'Project(s) removed successfully', count: data });
+  },
+
+  getProjectActions: async function getProjectActions(req, res) {
+    const data = await projectsDb.getProjectActions(req.params.id);
+
+    if (!data)
+      return res
+        .status(404)
+        .json({ message: 'The project with specified ID cannot be found' });
+
+    res.status(200).json({ data });
   },
 };

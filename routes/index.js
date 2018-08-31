@@ -18,6 +18,8 @@ projects
   .put(asyncCatcher(helpers.updateProject))
   .delete(asyncCatcher(helpers.removeProject));
 
+projects.route('/:id/actions').get(asyncCatcher(helpers.getProjectActions));
+
 apiRouter.use('/projects', projects);
 apiRouter.use('/actions', actions);
 
