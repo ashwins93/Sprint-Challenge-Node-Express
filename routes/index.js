@@ -15,7 +15,8 @@ projects
 projects
   .route('/:id')
   .get(asyncCatcher(helpers.getOneProject))
-  .put(asyncCatcher(helpers.updateProject));
+  .put(asyncCatcher(helpers.updateProject))
+  .delete(asyncCatcher(helpers.removeProject));
 
 apiRouter.use('/projects', projects);
 apiRouter.use('/actions', actions);

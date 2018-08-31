@@ -52,4 +52,16 @@ module.exports = {
 
     res.status(200).json({ message: 'Update successful', data });
   },
+
+  removeProject: async function removeProject(req, res) {
+    const data = await projectsDb.remove(req.params.id);
+    if (!data)
+      return res
+        .status(404)
+        .json({ message: 'The project with specified ID cannot be found' });
+
+    res
+      .status(200)
+      .json({ message: 'Project(s) removed successfully', count: data });
+  },
 };
