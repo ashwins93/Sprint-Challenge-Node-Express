@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+
+const API_URL = 'http://localhost:5000';
 
 class ProjectDetail extends React.Component {
   state = {
@@ -9,7 +10,7 @@ class ProjectDetail extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:5000/api/projects/${this.props.match.params.id}`)
+      .get(`${API_URL}/api/projects/${this.props.match.params.id}`)
       .then(response => this.setState({ project: response.data.data }))
       .catch(console.log);
   }
@@ -25,10 +26,10 @@ class ProjectDetail extends React.Component {
           <p>{project.notes}</p>
           <ul>
             {project.actions.map(action => (
-              <li>
+              <li key={action.id}>
                 <div>{action.description}</div>
                 <div>{action.notes}</div>
-                <div>Completed: {action.completed}</div>
+                <div>Completed: {action.completed ? 'Yes' : 'No'}</div>
               </li>
             ))}
           </ul>
