@@ -87,17 +87,47 @@ module.exports = {
     if (!project_id || !description || !notes)
       return res.status(400).json({
         message:
-          'The following fields are required: project_id, descriptin, notes',
+          'The following fields are required: project_id, description, notes',
       });
 
     const project = await projectsDb.get(project_id);
 
     if (!project)
-      res
+      return res
         .status(404)
         .json({ message: 'The project with specified ID cannot be found' });
 
     const data = await actionsDb.insert({ project_id, description, notes });
     res.status(201).json({ message: 'Action created successfully', data });
+  },
+
+  updateAction: async function updateAction(req, res) {
+    const { project_id, description, notes, completed } = req.body;
+
+    if (!project_id || !description || !notes)
+      return res.status(400).json({
+        message:
+          'The following fields are required: project_id, description, notes',
+      });
+
+    const project = await projectsDb.get(project_id);
+
+    if (!project)
+      return res
+        .status(404)
+        .json({ message: 'The project with specified ID cannot be found' });
+
+    const updateObj = { project_id, description, notes };
+
+    if (completed !== undefined) updateObj.completed = completed;
+
+    const data = await actionsDb.update(req.params.id, updateObj);
+
+    if (!data)
+      return res
+        .status(404)
+        .json({ message: 'The action with specified ID cannot be found' });
+
+    res.status(200).json({ message: 'Action updated successfully', data });
   },
 };
