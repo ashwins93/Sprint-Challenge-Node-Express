@@ -28,7 +28,8 @@ actions
 actions
   .route('/:id')
   .get(asyncCatcher(helpers.getOneAction))
-  .put(asyncCatcher(helpers.updateAction));
+  .put(asyncCatcher(helpers.updateAction))
+  .delete(asyncCatcher(helpers.deleteAction));
 
 apiRouter.use('/projects', projects);
 apiRouter.use('/actions', actions);

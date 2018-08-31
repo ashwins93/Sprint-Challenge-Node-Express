@@ -59,3 +59,6 @@ Content-Type: application/json
   "completed": true
 }
 ###
+
+DELETE http://localhost:5000/api/actions/4 HTTP/1.1
+###

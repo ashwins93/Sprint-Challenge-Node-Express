@@ -60,9 +60,7 @@ module.exports = {
         .status(404)
         .json({ message: 'The project with specified ID cannot be found' });
 
-    res
-      .status(200)
-      .json({ message: 'Project(s) removed successfully', count: data });
+    res.status(200).json({ message: 'Project(s) removed successfully', data });
   },
 
   getProjectActions: async function getProjectActions(req, res) {
@@ -140,5 +138,16 @@ module.exports = {
         .json({ message: 'The action with specified ID cannot be found' });
 
     res.status(200).json({ message: 'Action updated successfully', data });
+  },
+
+  deleteAction: async function deleteAction(req, res) {
+    const data = await actionsDb.remove(req.params.id);
+
+    if (!data)
+      return res
+        .status(404)
+        .json({ message: 'The action with specified ID cannot be found' });
+
+    res.status(200).json({ message: 'Action deleted successfully', data });
   },
 };
