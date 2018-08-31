@@ -81,6 +81,17 @@ module.exports = {
     res.status(200).json({ data });
   },
 
+  getOneAction: async function getOneAction(req, res) {
+    const data = await actionsDb.get(req.params.id);
+
+    if (!data)
+      return res
+        .status(404)
+        .json({ message: 'The action with specified ID cannot be found' });
+
+    res.status(200).json({ data });
+  },
+
   addAction: async function addAction(req, res) {
     const { project_id, description, notes } = req.body;
 
