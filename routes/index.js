@@ -7,7 +7,10 @@ const apiRouter = express.Router();
 const helpers = require('./helpers');
 const { asyncCatcher } = helpers;
 
-projects.route('/').get(asyncCatcher(helpers.getAllProjects));
+projects
+  .route('/')
+  .get(asyncCatcher(helpers.getAllProjects))
+  .post(asyncCatcher(helpers.addProject));
 
 projects.route('/:id').get(asyncCatcher(helpers.getOneProject));
 

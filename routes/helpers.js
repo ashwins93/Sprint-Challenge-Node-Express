@@ -22,4 +22,14 @@ module.exports = {
     }
     res.status(200).json(data);
   },
+
+  addProject: async function addProject(req, res) {
+    const { name, description } = req.body;
+
+    if (!name || !description)
+      return res.status(400).json({ message: 'Name or description missing ' });
+
+    const data = await projectsDb.insert({ name, description });
+    res.status(201).json({ message: 'Project created succesfully!', data });
+  },
 };
