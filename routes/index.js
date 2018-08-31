@@ -4,9 +4,12 @@ const projects = express.Router();
 const actions = express.Router();
 const apiRouter = express.Router();
 
-const { asyncCatcher, getAllProjects } = require('./helpers');
+const helpers = require('./helpers');
+const { asyncCatcher } = helpers;
 
-projects.route('/').get(asyncCatcher(getAllProjects));
+projects.route('/').get(asyncCatcher(helpers.getAllProjects));
+
+projects.route('/:id').get(asyncCatcher(helpers.getOneProject));
 
 apiRouter.use('/projects', projects);
 apiRouter.use('/actions', actions);
