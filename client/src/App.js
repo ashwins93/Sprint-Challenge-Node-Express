@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import ProjectList from './components/ProjectList';
+import ProjectDetail from './components/ProjectDetail';
 
 const API_URL = 'http://localhost:5000';
 
@@ -26,6 +27,7 @@ class App extends Component {
           path="/"
           render={() => <ProjectList projects={this.state.projects} />}
         />
+        <Route exact path="/projects/:id" component={ProjectDetail} />
       </div>
     );
   }
