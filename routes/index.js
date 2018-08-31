@@ -20,6 +20,8 @@ projects
 
 projects.route('/:id/actions').get(asyncCatcher(helpers.getProjectActions));
 
+actions.route('/').get(asyncCatcher(helpers.getAllActions));
+
 apiRouter.use('/projects', projects);
 apiRouter.use('/actions', actions);
 

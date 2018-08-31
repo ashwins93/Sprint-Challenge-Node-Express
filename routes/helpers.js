@@ -75,4 +75,9 @@ module.exports = {
 
     res.status(200).json({ data });
   },
+
+  getAllActions: async function getAllActions(req, res) {
+    const data = await actionsDb.get();
+    res.status(200).json({ data });
+  },
 };
