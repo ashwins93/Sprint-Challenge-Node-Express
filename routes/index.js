@@ -12,7 +12,10 @@ projects
   .get(asyncCatcher(helpers.getAllProjects))
   .post(asyncCatcher(helpers.addProject));
 
-projects.route('/:id').get(asyncCatcher(helpers.getOneProject));
+projects
+  .route('/:id')
+  .get(asyncCatcher(helpers.getOneProject))
+  .put(asyncCatcher(helpers.updateProject));
 
 apiRouter.use('/projects', projects);
 apiRouter.use('/actions', actions);

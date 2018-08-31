@@ -16,7 +16,7 @@ module.exports = {
   getOneProject: async function getOneProject(req, res) {
     const data = await projectsDb.get(req.params.id);
     if (!data) {
-      res
+      return res
         .status(404)
         .json({ message: 'The project with the requested id cannot be found' });
     }
@@ -31,5 +31,25 @@ module.exports = {
 
     const data = await projectsDb.insert({ name, description });
     res.status(201).json({ message: 'Project created succesfully!', data });
+  },
+
+  updateProject: async function updateProject(req, res) {
+    const { name, description, completed } = req.body;
+
+    if (!name || !description)
+      return res.status(400).json({ message: 'Name or description missing ' });
+
+    const updateObj = { name, description };
+
+    if (completed !== undefined) updateObj.completed = completed;
+
+    const data = await projectsDb.update(req.params.id, updateObj);
+
+    if (!data)
+      return res
+        .status(404)
+        .json({ message: 'The project with specified ID cannot be found' });
+
+    res.status(200).json({ message: 'Update successful', data });
   },
 };
